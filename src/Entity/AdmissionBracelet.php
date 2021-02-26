@@ -6,6 +6,8 @@ use App\Repository\AdmissionBraceletRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * @ORM\Entity(repositoryClass=AdmissionBraceletRepository::class)
@@ -16,6 +18,7 @@ class AdmissionBracelet
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"show_bracelet", "show_registration"})
      */
     private $id;
 
@@ -62,6 +65,11 @@ class AdmissionBracelet
         }
 
         return $this;
+    }
+
+    public function isInUse()
+    {
+
     }
 
 }

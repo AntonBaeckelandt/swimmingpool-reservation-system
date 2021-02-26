@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\RegistrationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * @ORM\Entity(repositoryClass=RegistrationRepository::class)
@@ -14,35 +16,51 @@ class Registration
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"show_registration"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"show_registration"})
      */
     private $check_in_timestamp;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"show_registration"})
      */
     private $check_out_timestamp;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"show_registration"})
      */
     private $type;
 
     /**
      * @ORM\ManyToOne(targetEntity=AdmissionBracelet::class, inversedBy="registrations")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"show_registration"})
      */
     private $bracelet;
 
     /**
      * @ORM\ManyToOne(targetEntity=Employee::class, inversedBy="registrations")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"show_registration"})
      */
     private $registeredBy;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Subscription::class, cascade={"persist", "remove"})
+     */
+    private $subscription;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Ticket::class, cascade={"persist", "remove"})
+     */
+    private $ticket;
 
     public function getId(): ?int
     {
@@ -105,6 +123,30 @@ class Registration
     public function setRegisteredBy(?Employee $RegisteredBy): self
     {
         $this->registeredBy = $RegisteredBy;
+
+        return $this;
+    }
+
+    public function getSubscription(): ?Subscription
+    {
+        return $this->subscription;
+    }
+
+    public function setSubscription(?Subscription $subscription): self
+    {
+        $this->subscription = $subscription;
+
+        return $this;
+    }
+
+    public function getTicket(): ?Ticket
+    {
+        return $this->ticket;
+    }
+
+    public function setTicket(?Ticket $ticket): self
+    {
+        $this->ticket = $ticket;
 
         return $this;
     }
