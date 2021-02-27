@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\RegistrationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -23,18 +24,24 @@ class Registration
     /**
      * @ORM\Column(type="datetime")
      * @Groups({"show_registration", "show_subscription"})
+     * @Assert\NotNull
+     * @Assert\LessThanOrEqual("now")
      */
     private $check_in_timestamp;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      * @Groups({"show_registration", "show_subscription"})
+     * @Assert\LessThanOrEqual("now")
      */
     private $check_out_timestamp;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups({"show_registration", "show_subscription"})
+     * @Assert\NotNull
+     * @Assert\Range(min=0, max=1, notInRangeMessage = "Type must be between 0 and 1",
+     * )
      */
     private $type;
 
@@ -42,6 +49,7 @@ class Registration
      * @ORM\ManyToOne(targetEntity=AdmissionBracelet::class, inversedBy="registrations")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"show_registration", "show_subscription"})
+     * @Assert\NotNull
      */
     private $bracelet;
 
@@ -49,6 +57,7 @@ class Registration
      * @ORM\ManyToOne(targetEntity=Employee::class, inversedBy="registrations")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"show_registration", "show_subscription"})
+     * @Assert\NotNull
      */
     private $registeredBy;
 
