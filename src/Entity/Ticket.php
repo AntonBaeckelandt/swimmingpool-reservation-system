@@ -15,25 +15,25 @@ class Ticket
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"show_ticket"})
+     * @Groups({"show_ticket", "show_registration"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="float")
-     * @Groups({"show_ticket"})
+     * @Groups({"show_ticket", "show_registration"})
      */
     private $price;
 
     /**
      * @ORM\Column(type="date")
-     * @Groups({"show_ticket"})
+     * @Groups({"show_ticket", "show_registration"})
      */
     private $boughtOn;
 
     /**
      * @ORM\Column(type="date")
-     * @Groups({"show_ticket"})
+     * @Groups({"show_ticket", "show_registration"})
      */
     private $validOn;
 

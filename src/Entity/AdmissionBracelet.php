@@ -18,7 +18,7 @@ class AdmissionBracelet
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"show_bracelet", "show_registration"})
+     * @Groups({"show_bracelet", "show_registration", "show_subscription"})
      */
     private $id;
 

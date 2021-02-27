@@ -16,39 +16,39 @@ class Registration
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"show_registration"})
+     * @Groups({"show_registration", "show_subscription"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"show_registration"})
+     * @Groups({"show_registration", "show_subscription"})
      */
     private $check_in_timestamp;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"show_registration"})
+     * @Groups({"show_registration", "show_subscription"})
      */
     private $check_out_timestamp;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"show_registration"})
+     * @Groups({"show_registration", "show_subscription"})
      */
     private $type;
 
     /**
      * @ORM\ManyToOne(targetEntity=AdmissionBracelet::class, inversedBy="registrations")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"show_registration"})
+     * @Groups({"show_registration", "show_subscription"})
      */
     private $bracelet;
 
     /**
      * @ORM\ManyToOne(targetEntity=Employee::class, inversedBy="registrations")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"show_registration"})
+     * @Groups({"show_registration", "show_subscription"})
      */
     private $registeredBy;
 
