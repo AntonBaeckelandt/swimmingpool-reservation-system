@@ -25,6 +25,7 @@ class CustomerController extends AbstractController
         $customer->setFirstName($request->get("firstName"));
         $customer->setLastName($request->get("lastName"));
         $customer->setDateOfBirth(\DateTime::createFromFormat('Y-m-d', $request->get("dateOfBirth")));
+        $customer->setGender($request->get("gender"));
 
         $errors = $validator->validate($customer);
 

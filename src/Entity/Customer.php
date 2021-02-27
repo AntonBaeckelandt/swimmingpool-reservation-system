@@ -45,6 +45,12 @@ class Customer
      */
     private $subscriptions;
 
+    /**
+     * @ORM\Column(type="string", length=1)
+     * @Groups({"show_employee", "show_customer"})
+     */
+    private $gender;
+
     public function __construct()
     {
         $this->subscriptions = new ArrayCollection();
@@ -117,6 +123,18 @@ class Customer
                 $subscription->setCustomer(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(string $gender): self
+    {
+        $this->gender = $gender;
 
         return $this;
     }
