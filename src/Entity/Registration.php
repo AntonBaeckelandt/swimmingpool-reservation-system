@@ -53,14 +53,16 @@ class Registration
     private $registeredBy;
 
     /**
-     * @ORM\OneToOne(targetEntity=Subscription::class, cascade={"persist", "remove"})
-     */
-    private $subscription;
-
-    /**
      * @ORM\OneToOne(targetEntity=Ticket::class, cascade={"persist", "remove"})
+     * @Groups({"show_registration"})
      */
     private $ticket;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Subscription::class, inversedBy="registrations")
+     * @Groups({"show_registration"})
+     */
+    private $subscription;
 
     public function getId(): ?int
     {
@@ -127,18 +129,6 @@ class Registration
         return $this;
     }
 
-    public function getSubscription(): ?Subscription
-    {
-        return $this->subscription;
-    }
-
-    public function setSubscription(?Subscription $subscription): self
-    {
-        $this->subscription = $subscription;
-
-        return $this;
-    }
-
     public function getTicket(): ?Ticket
     {
         return $this->ticket;
@@ -147,6 +137,18 @@ class Registration
     public function setTicket(?Ticket $ticket): self
     {
         $this->ticket = $ticket;
+
+        return $this;
+    }
+
+    public function getSubscription(): ?Subscription
+    {
+        return $this->subscription;
+    }
+
+    public function setSubscription(?Subscription $subscription): self
+    {
+        $this->subscription = $subscription;
 
         return $this;
     }

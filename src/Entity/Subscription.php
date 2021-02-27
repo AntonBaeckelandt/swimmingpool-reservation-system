@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SubscriptionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -15,28 +17,39 @@ class Subscription
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"show_employee", "show_customer", "show_subscription"})
+     * @Groups({"show_employee", "show_customer", "show_subscription", "show_registration"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="date")
-     * @Groups({"show_employee", "show_customer", "show_subscription"})
+     * @Groups({"show_employee", "show_customer", "show_subscription", "show_registration"})
      */
     private $expirationDate;
 
     /**
      * @ORM\ManyToOne(targetEntity=Customer::class, inversedBy="subscription")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"show_subscription"})
+     * @Groups({"show_subscription", "show_registration"})
      */
     private $customer;
 
     /**
      * @ORM\Column(type="date")
-     * @Groups({"show_employee", "show_customer", "show_subscription"})
+     * @Groups({"show_employee", "show_customer", "show_subscription", "show_registration"})
      */
     private $boughtOn;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Registration::class, mappedBy="subscription")
+     * @Groups({"show_subscription"})
+     */
+    private $registrations;
+
+    public function __construct()
+    {
+        $this->registrations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -75,6 +88,36 @@ class Subscription
     public function setBoughtOn(\DateTimeInterface $boughtOn): self
     {
         $this->boughtOn = $boughtOn;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Registration[]
+     */
+    public function getRegistrations(): Collection
+    {
+        return $this->registrations;
+    }
+
+    public function addRegistration(Registration $registration): self
+    {
+        if (!$this->registrations->contains($registration)) {
+            $this->registrations[] = $registration;
+            $registration->setSubscription($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRegistration(Registration $registration): self
+    {
+        if ($this->registrations->removeElement($registration)) {
+            // set the owning side to null (unless already changed)
+            if ($registration->getSubscription() === $this) {
+                $registration->setSubscription(null);
+            }
+        }
 
         return $this;
     }
