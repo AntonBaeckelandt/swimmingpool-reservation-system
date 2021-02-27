@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=SubscriptionRepository::class)
@@ -24,6 +25,9 @@ class Subscription
     /**
      * @ORM\Column(type="date")
      * @Groups({"show_employee", "show_customer", "show_subscription", "show_registration"})
+     * @Assert\NotNull
+     * @Assert\Type("\DateTimeInterface")
+     * @Assert\GreaterThanOrEqual("now")
      */
     private $expirationDate;
 
@@ -31,12 +35,16 @@ class Subscription
      * @ORM\ManyToOne(targetEntity=Customer::class, inversedBy="subscription")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"show_subscription", "show_registration"})
+     * @Assert\NotNull
      */
     private $customer;
 
     /**
      * @ORM\Column(type="date")
      * @Groups({"show_employee", "show_customer", "show_subscription", "show_registration"})
+     * @Assert\NotNull
+     * @Assert\Type("\DateTimeInterface")
+     * @Assert\LessThanOrEqual("now")
      */
     private $boughtOn;
 
