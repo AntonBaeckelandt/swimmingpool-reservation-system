@@ -27,6 +27,11 @@ class Ticket
      */
     private $boughtOn;
 
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $validOn;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +57,18 @@ class Ticket
     public function setBoughtOn(\DateTimeInterface $boughtOn): self
     {
         $this->boughtOn = $boughtOn;
+
+        return $this;
+    }
+
+    public function getValidOn(): ?\DateTimeInterface
+    {
+        return $this->validOn;
+    }
+
+    public function setValidOn(\DateTimeInterface $validOn): self
+    {
+        $this->validOn = $validOn;
 
         return $this;
     }
