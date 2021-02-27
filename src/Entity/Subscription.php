@@ -15,25 +15,26 @@ class Subscription
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"show_employee", "show_customer"})
+     * @Groups({"show_employee", "show_customer", "show_subscription"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="date")
-     * @Groups({"show_employee", "show_customer"})
+     * @Groups({"show_employee", "show_customer", "show_subscription"})
      */
     private $expirationDate;
 
     /**
      * @ORM\ManyToOne(targetEntity=Customer::class, inversedBy="subscription")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"show_subscription"})
      */
     private $customer;
 
     /**
      * @ORM\Column(type="date")
-     * @Groups({"show_employee", "show_customer"})
+     * @Groups({"show_employee", "show_customer", "show_subscription"})
      */
     private $boughtOn;
 

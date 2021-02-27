@@ -17,25 +17,25 @@ class Customer
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"show_employee", "show_customer"})
+     * @Groups({"show_employee", "show_customer", "show_subscription"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"show_employee", "show_customer"})
+     * @Groups({"show_employee", "show_customer", "show_subscription"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"show_employee", "show_customer"})
+     * @Groups({"show_employee", "show_customer", "show_subscription"})
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="date")
-     * @Groups({"show_employee", "show_customer"})
+     * @Groups({"show_employee", "show_customer", "show_subscription"})
      */
     private $dateOfBirth;
 
@@ -47,7 +47,7 @@ class Customer
 
     /**
      * @ORM\Column(type="string", length=1)
-     * @Groups({"show_employee", "show_customer"})
+     * @Groups({"show_employee", "show_customer", "show_subscription"})
      */
     private $gender;
 
