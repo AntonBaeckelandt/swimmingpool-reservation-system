@@ -100,6 +100,8 @@ class RegistrationController extends AbstractController
 
         if (!$registration) {
             return $this->json("Registration with id " . $id . " not found.", 404);
+        } else if ($registration->getCheckOutTimestamp() != null) {
+            return $this->json("Registration with id " . $id . " has already been checked out.", 400);
         }
 
         $registration->setCheckOutTimestamp(new DateTime("now"));
